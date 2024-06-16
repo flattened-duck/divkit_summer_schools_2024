@@ -1,0 +1,102 @@
+{
+    "card": {
+        "log_id": "divgram",
+        "states": [
+            {
+                "state_id": 0,
+                "div": {
+                    "type": "container",
+                    "margins": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 12,
+                        "bottom": 12
+                    },
+                    "border": {
+                        "corner_radius": 14,
+                        "stroke": {
+                            "color": "#666"
+                        },
+                        "shadow": {
+                            "offset": {
+                                "x": {
+                                    "value": 1
+                                },
+                                "y": {
+                                    "value": 4
+                                }
+                            },
+                            "color": "#000"
+                        },
+                        "has_shadow": true
+                    },
+                    "items": [
+                        {
+                            "type": "image",
+                            "image_url": "https://github.com/flattened-duck/divkit_summer_schools_2024/blob/main/img/mamals/wombat.jpg?raw=true",
+                            "aspect": {
+                                "ratio": 1
+                            },
+                            "content_alignment_vertical": "top"
+                        },
+                        {
+                            "type": "container",
+                            "orientation": "horizontal",
+                            "margins": {
+                                "left": 12,
+                                "right": 12,
+                                "top": 12,
+                                "bottom": 12
+                            },
+                            "content_alignment_vertical": "center",
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "text": "by @yandex_art",
+                                    "font_size": 16,
+                                    "ranges": [
+                                        {
+                                            "start": 0,
+                                            "end": 3,
+                                            "font_size": 12
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "container",
+                                    "orientation": "horizontal",
+                                    "width":{
+                                        "type": "wrap_content"
+                                    },
+                                    "content_alignment_vertical": "center",
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "text": "0",
+                                            "font_size": 20,
+                                            "width":{
+                                                "type": "wrap_content"
+                                            },
+                                            "paddings": {
+                                                "right": 7
+                                            }
+                                        },
+                                        {
+                                            "type": "image",
+                                            "image_url": "https://github.com/flattened-duck/divkit_summer_schools_2024/blob/main/img/heart.svg?raw=true",
+                                            "width": {
+                                                "type": "fixed",
+                                                "value": 25,
+                                                "unit": "dp"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

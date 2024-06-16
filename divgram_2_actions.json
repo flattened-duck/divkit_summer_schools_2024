@@ -1,0 +1,173 @@
+{
+    "card": {
+        "timers": [
+            {
+                "id": "like_timer",
+                "tick_interval": 2000,
+                "tick_actions": [
+                    {
+                        "log_id": "card0.add_timer_like",
+                        "url": "@{card0.likes > 7 ? '' : 'div-action://set_variable?name=card0.likes&value=@{card0.likes + 1}'}"
+                    }
+                ]
+            }
+        ],
+        "variables": [
+            {
+                "name": "card0.likes",
+                "type": "integer",
+                "value": 5
+            }
+        ],
+        "log_id": "divgram",
+        "states": [
+            {
+                "state_id": 0,
+                "div": {
+                    "type": "container",
+                    "margins": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 12,
+                        "bottom": 12
+                    },
+                    "border": {
+                        "corner_radius": 14,
+                        "stroke": {
+                            "color": "#666"
+                        },
+                        "shadow": {
+                            "offset": {
+                                "x": {
+                                    "value": 1
+                                },
+                                "y": {
+                                    "value": 4
+                                }
+                            },
+                            "color": "#000"
+                        },
+                        "has_shadow": true
+                    },
+                    "visibility_actions": [
+                        {
+                            "log_id": "card0.visible",
+                            "url": "div-action://timer?id=like_timer&action=start"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "image",
+                            "image_url": "https://github.com/flattened-duck/divkit_summer_schools_2024/blob/main/img/mamals/wombat.jpg?raw=true",
+                            "aspect": {
+                                "ratio": 1
+                            },
+                            "content_alignment_vertical": "top"
+                        },
+                        {
+                            "type": "container",
+                            "orientation": "horizontal",
+                            "margins": {
+                                "left": 12,
+                                "right": 12,
+                                "top": 12,
+                                "bottom": 12
+                            },
+                            "content_alignment_vertical": "center",
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "text": "by @yandex_art",
+                                    "font_size": 16,
+                                    "ranges": [
+                                        {
+                                            "start": 0,
+                                            "end": 3,
+                                            "font_size": 12
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "container",
+                                    "orientation": "horizontal",
+                                    "width": {
+                                        "type": "wrap_content"
+                                    },
+                                    "content_alignment_vertical": "center",
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "text": "@{card0.likes}",
+                                            "font_size": 20,
+                                            "width":{
+                                                "type": "wrap_content"
+                                            },
+                                            "paddings": {
+                                                "right": 7
+                                            }
+                                        },
+                                        {
+                                            "type": "state",
+                                            "id": "card0.likes",
+                                            "width": {
+                                                "type": "wrap_content"
+                                            },
+                                            "states": [
+                                                {
+                                                    "state_id": "disliked",
+                                                    "div": {
+                                                        "type": "image",
+                                                        "image_url": "https://github.com/flattened-duck/divkit_summer_schools_2024/blob/main/img/heart.svg?raw=true",
+                                                        "width": {
+                                                            "type": "fixed",
+                                                            "value": 25,
+                                                            "unit": "dp"
+                                                        },
+                                                        "actions": [
+                                                            {
+                                                                "log_id": "card0.add_like",
+                                                                "url": "div-action://set_variable?name=card0.likes&value=@{card0.likes + 1}"
+                                                            },
+                                                            {
+                                                                "log_id": "card0.set_liked",
+                                                                "url": "div-action://set_state?state_id=0/card0.likes/liked"
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "state_id": "liked",
+                                                    "div": {
+                                                        "type": "image",
+                                                        "image_url": "https://github.com/flattened-duck/divkit_summer_schools_2024/blob/main/img/heart.svg?raw=true",
+                                                        "tint_color": "#f83939",
+                                                        "tint_mode": "multiply",
+                                                        "width": {
+                                                            "type": "fixed",
+                                                            "value": 25,
+                                                            "unit": "dp"
+                                                        },
+                                                        "actions": [
+                                                            {
+                                                                "log_id": "card0.remove_like",
+                                                                "url": "div-action://set_variable?name=card0.likes&value=@{card0.likes - 1}"
+                                                            },
+                                                            {
+                                                                "log_id": "card0.set_liked",
+                                                                "url": "div-action://set_state?state_id=0/card0.likes/disliked"
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

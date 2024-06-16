@@ -1,0 +1,227 @@
+{
+    "templates": {
+        "divgram_card": {
+            "type": "container",
+            "margins": {
+                "left": 12,
+                "right": 12,
+                "top": 12,
+                "bottom": 12
+            },
+            "border": {
+                "corner_radius": 14,
+                "stroke": {
+                    "color": "#666"
+                },
+                "shadow": {
+                    "offset": {
+                        "x": {
+                            "value": 1
+                        },
+                        "y": {
+                            "value": 4
+                        }
+                    },
+                    "color": "#000"
+                },
+                "has_shadow": true
+            },
+            "items": [
+                {
+                    "type": "image",
+                    "$image_url": "post_image",
+                    "aspect": {
+                        "ratio": 1
+                    },
+                    "content_alignment_vertical": "top"
+                },
+                {
+                    "type": "container",
+                    "orientation": "horizontal",
+                    "margins": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 12,
+                        "bottom": 12
+                    },
+                    "content_alignment_vertical": "center",
+                    "items": [
+                        {
+                            "type": "text",
+                            "$text": "author",
+                            "font_size": 16,
+                            "ranges": [
+                                {
+                                    "start": 0,
+                                    "$end": "author_prefix_end",
+                                    "font_size": 12
+                                }
+                            ]
+                        },
+                        {
+                            "type": "container",
+                            "orientation": "horizontal",
+                            "width": {
+                                "type": "wrap_content"
+                            },
+                            "content_alignment_vertical": "center",
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "$text": "likes_counter",
+                                    "font_size": 20,
+                                    "width":{
+                                        "type": "wrap_content"
+                                    },
+                                    "paddings": {
+                                        "right": 7
+                                    },
+                                    "height": {
+                                        "type": "wrap_content"
+                                    }
+                                },
+                                {
+                                    "type": "state",
+                                    "$id": "state_likes_id",
+                                    "width": {
+                                        "type": "wrap_content"
+                                    },
+                                    "height": {
+                                        "type": "wrap_content"
+                                    },
+                                    "states": [
+                                        {
+                                            "state_id": "disliked",
+                                            "div": {
+                                                "type": "image",
+                                                "image_url": "https://github.com/flattened-duck/divkit_summer_schools_2024/blob/main/img/heart.svg?raw=true",
+                                                "width": {
+                                                    "type": "fixed",
+                                                    "value": 25,
+                                                    "unit": "dp"
+                                                },
+                                                "actions": [
+                                                    {
+                                                        "log_id": "card0.add_like",
+                                                        "url": "div-action://set_variable?name=card0.likes&value=@{card0.likes + 1}"
+                                                    },
+                                                    {
+                                                        "log_id": "card0.set_liked",
+                                                        "url": "div-action://set_state?state_id=0/card0.likes/liked"
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "state_id": "liked",
+                                            "div": {
+                                                "type": "image",
+                                                "image_url": "https://github.com/flattened-duck/divkit_summer_schools_2024/blob/main/img/heart.svg?raw=true",
+                                                "width": {
+                                                    "type": "fixed",
+                                                    "value": 25,
+                                                    "unit": "dp"
+                                                },
+                                                "tint_color": "#f83939",
+                                                "tint_mode": "multiply",
+                                                "actions": [
+                                                    {
+                                                        "log_id": "card0.remove_like",
+                                                        "url": "div-action://set_variable?name=card0.likes&value=@{card0.likes - 1}"
+                                                    },
+                                                    {
+                                                        "log_id": "card0.set_liked",
+                                                        "url": "div-action://set_state?state_id=0/card0.likes/disliked"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "card": {
+        "timers": [
+            {
+                "id": "like_timer",
+                "tick_interval": 2000,
+                "tick_actions": [
+                    {
+                        "log_id": "card0.add_timer_like",
+                        "url": "@{card0.likes > 7 ? '' : 'div-action://set_variable?name=card0.likes&value=@{card0.likes + 1}'}"
+                    }
+                ]
+            }
+        ],
+        "variables": [
+            {
+                "name": "card0.likes",
+                "type": "integer",
+                "value": 5
+            },
+            {
+                "name": "card1.likes",
+                "type": "integer",
+                "value": 73
+            },
+            {
+                "name": "card2.likes",
+                "type": "integer",
+                "value": 1001001
+            }
+        ],
+        "log_id": "divgram",
+        "states": [
+            {
+                "state_id": 0,
+                "div": {
+                    "type": "gallery",
+                    "orientation": "vertical",
+                    "height": {
+                        "type": "match_parent"
+                    },
+                    "width": {
+                        "type": "match_parent"
+                    },
+                    "items": [
+                        {
+                            "type": "divgram_card",
+                            "likes_counter": "@{card0.likes}",
+                            "post_image": "https://github.com/flattened-duck/divkit_summer_schools_2024/blob/main/img/mamals/wombat.jpg?raw=true",
+                            "author": "by @yandex_art",
+                            "author_prefix_end": "3",
+                            "state_likes_id": "card0.likes",
+                            "visibility_actions": [
+                                {
+                                    "log_id": "card_visible",
+                                    "url": "div-action://timer?id=like_timer&action=start"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "divgram_card",
+                            "likes_counter": "@{card1.likes}",
+                            "post_image": "https://github.com/flattened-duck/divkit_summer_schools_2024/blob/main/img/mamals/ducks.jpg?raw=true",
+                            "author": "from @shedevrum",
+                            "author_prefix_end": "5",
+                            "state_likes_id": "card1.likes"
+                        },
+                        {
+                            "type": "divgram_card",
+                            "likes_counter": "@{card2.likes}",
+                            "post_image": "https://github.com/flattened-duck/divkit_summer_schools_2024/blob/main/img/mamals/pupduck.jpg?raw=true",
+                            "author": "created by\n@me_and_you",
+                            "author_prefix_end": "11",
+                            "state_likes_id": "card2.likes"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
